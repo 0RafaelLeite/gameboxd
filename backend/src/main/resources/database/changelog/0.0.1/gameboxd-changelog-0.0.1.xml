@@ -5,29 +5,15 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
 
-    <changeSet id="create_roles_table" author="rafael.leite">
-        <sql>
-            CREATE TABLE roles (
-                                   id SERIAL PRIMARY KEY,
-                                   name VARCHAR(20) UNIQUE NOT NULL
-            );
-
-            INSERT INTO roles (name) VALUES ('ADMIN');
-            INSERT INTO roles (name) VALUES ('USER');
-        </sql>
-    </changeSet>
-
     <changeSet id="create_users_table" author="rafael.leite">
         <sql>
             CREATE TABLE users (
                    id SERIAL PRIMARY KEY,
                    username VARCHAR(50) UNIQUE NOT NULL,
-                   password VARCHAR(255) NOT NULL,
-                   role_id INTEGER NOT NULL,
+                   password VARCHAR(30) NOT NULL,
+                   role VARCHAR(15) NOT NULL,
                    active BOOLEAN DEFAULT TRUE,
-                   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-                   CONSTRAINT fk_role FOREIGN KEY (role_id) REFERENCES roles(id));
+                   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP;
         </sql>
     </changeSet>
-
 </databaseChangeLog>

@@ -13,7 +13,7 @@
                    password VARCHAR(30) NOT NULL,
                    role VARCHAR(15) NOT NULL,
                    active BOOLEAN DEFAULT TRUE,
-                   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP;
+                   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP);
         </sql>
     </changeSet>
 </databaseChangeLog>

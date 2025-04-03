@@ -28,6 +28,12 @@ public class User implements UserDetails {
     private Boolean active;
     private Timestamp created_at;
 
+    public User(String login, String encryptedPassword, UserRole role) {
+        this.username = login;
+        this.password = encryptedPassword;
+        this.role = role;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if(this.role == UserRole.ADMIN) {

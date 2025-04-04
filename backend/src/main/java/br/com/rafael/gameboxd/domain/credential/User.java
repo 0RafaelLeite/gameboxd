@@ -2,6 +2,7 @@ package br.com.rafael.gameboxd.domain.credential;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,11 +23,19 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String username;
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", columnDefinition = "VARCHAR(15)")
     private UserRole role;
-    private Boolean active;
-    private Timestamp created_at;
+
+    private Boolean active = true;
+
+    @Column(name = "created_at", nullable = false, updatable = false)
+    @CreationTimestamp
+    private Timestamp createdAt;
 
     public User(String login, String encryptedPassword, UserRole role) {
         this.username = login;
@@ -39,7 +48,7 @@ public class User implements UserDetails {
         if(this.role == UserRole.ADMIN) {
             return List.of(new SimpleGrantedAuthority("ADMIN"), new SimpleGrantedAuthority("USER"));
         }
-        return List.of();
+        return List.of( new SimpleGrantedAuthority("USER"));
     }
 
     @Override

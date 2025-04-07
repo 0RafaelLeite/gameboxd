@@ -23,6 +23,8 @@ public class RawgService {
                 .queryParam("page", page)
                 .queryParam("pagesize", pagesize);
 
+        //Include functions to get platforms and genres
+
         return restTemplate.getForObject(builder.toUriString(), String.class);
     }
 }
